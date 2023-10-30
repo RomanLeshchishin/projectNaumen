@@ -3,18 +3,34 @@ package com.example.ATM.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "account_holder")
 public class AccountHolder {
 
     @Id
-    @GeneratedValue
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
 
-    public AccountHolder(Long id, String firstName, String lastName) {
-        this.id = id;
+
+    @OneToOne(mappedBy = "accountHolder", cascade = CascadeType.ALL)
+    private User user;
+
+    public AccountHolder(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public AccountHolder() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
