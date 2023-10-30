@@ -15,4 +15,9 @@ public class LoaderController {
         model.addAttribute("username", auth.getName());
         return "index";
     }
+
+    @GetMapping("/login")
+    public String login(Model model){;
+        return "login";
+    }
 }
