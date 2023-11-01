@@ -2,12 +2,12 @@ package com.example.ATM.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @Configuration
 @EnableWebSecurity
@@ -21,14 +21,17 @@ public class SecurityConfig {
                         .requestMatchers("/delete/**").hasRole("ADMIN")
                         .requestMatchers("/create/**").hasAuthority("CREATOR")
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                );
         return http.build();
     }
 
 
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
