@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
         newUser.setRoles(Collections.singleton(Role.USER));
         newUser.setLogin(user.getLogin());
         newUser.setPassword(user.getPassword());
-        AccountHolder accountHolder = new AccountHolder(user.getUserName(), null);
+        AccountHolder accountHolder = new AccountHolder(user.getUserName(), null, null, 0);
         newUser.setAccountHolder(accountHolder);
         userRepository.save(newUser);
     }

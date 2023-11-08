@@ -1,13 +1,15 @@
 package com.example.ATM.services;
 
-import com.example.ATM.model.Account;
+import com.example.ATM.model.AccountHolder;
+import com.example.ATM.model.Transactions;
 import com.example.ATM.repository.AccountHolderRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AccountHolderService implements AccountService {
+public class AccountHolderService{
 
     protected final AccountHolderRepository repository;
 
@@ -15,23 +17,26 @@ public class AccountHolderService implements AccountService {
         this.repository = repository;
     }
 
-    @Override
-    public List<Account> getAllAccount() {
-        return null;
+    public List<AccountHolder> getAllAccountHolder() {
+        List<AccountHolder> result = new ArrayList<>();
+        repository.findAll().forEach(result::add);
+        return result;
     }
 
-    @Override
-    public void saveAccount(int countNumber, int countSum, String countName) {
-
+    public List<AccountHolder> getAccountHolderByFirstName(String firstName) {
+        return new ArrayList<>(repository.findByFirstName(firstName));
     }
 
-    @Override
+    public List<AccountHolder> getAccountHolderByLastName(String lastName) {
+        return new ArrayList<>(repository.findByLastName(lastName));
+    }
+
+//    public List<Transactions> getTransactionsByCountNumber(int countNumber) {?
+//       return new ArrayList<>(repository.findTransactionsByCountNumber(countNumber));
+//    }
+    //saveAccountHolder
+
     public String getName() {
         return null;
-    }
-
-    @Override
-    public void saveAccount(Account account) {
-
     }
 }
